@@ -1,0 +1,59 @@
+/* ============================================================
+   Manika Gupta — Studio
+   Design tokens. This is the ONLY file you should need to touch
+   to change the site's color palette or type scale globally.
+   ============================================================ */
+
+:root{
+  /* ---- Color: base ---- */
+  --s-white:      #FFFFFF;
+  --s-paper:      #F6F5F1;   /* off-white section alternation */
+  --s-ink:        #0B0B0C;   /* charcoal black — primary text */
+  --s-ink-dim:    #55575E;   /* secondary text on white */
+  --s-line:       #E4E2DC;   /* hairline borders on light surfaces */
+
+  /* ---- Color: dark surfaces (used sparingly, e.g. footer, one section) ---- */
+  --s-navy:       #2B2B2E;   /* graphite grey, replaces the old navy */
+  --s-navy-2:     #3A3A3D;
+  --s-on-navy:    #F3F1EE;
+  --s-on-navy-dim:#B7B4AF;
+
+  /* ---- Color: deep cobalt (data / AI / strategy) ---- */
+  --s-blue:       #1B3FA0;
+  --s-blue-deep:  #12266B;
+  --s-cobalt:     #849BDD;   /* soft, secondary blue */
+
+  /* ---- Color: personal accent — the maroon/brick red sampled directly from
+     the hero banner artwork. Used on the name, active-nav marks, one CTA
+     underline, and small highlight details. Never a large background
+     outside the hero, which is the one place it IS the background. ---- */
+  --s-signal:     #77220E;
+  /* Darker variant for anywhere the accent sits BEHIND white text at
+     normal size (buttons) — the base --s-signal only clears WCAG AA at
+     large/display sizes, so button backgrounds use this instead. */
+  --s-signal-btn:      #5C1A0A;
+  --s-signal-btn-hover:#4A1508;
+
+  /* ---- Type ---- */
+  --s-font-display: "Bricolage Grotesque", "Space Grotesk", "Segoe UI", sans-serif;
+  --s-font-body:    "Inter", "Segoe UI", sans-serif;
+
+  /* Editorial type scale — fluid, large on desktop */
+  --s-size-hero:    clamp(3.2rem, 11vw, 9.5rem);
+  --s-size-h1:      clamp(2.4rem, 5.5vw, 4.4rem);
+  --s-size-h2:      clamp(1.9rem, 3.4vw, 3rem);
+  --s-size-h3:      clamp(1.2rem, 1.6vw, 1.5rem);
+  --s-size-lede:    clamp(1.15rem, 1.8vw, 1.5rem);
+  --s-size-body:    1.0625rem;
+  --s-size-small:   0.875rem;
+
+  /* ---- Layout ---- */
+  --s-max: 1360px;
+  --s-gutter: clamp(20px, 5vw, 64px);
+  --s-radius: 2px;   /* near-flat — editorial, not SaaS-rounded */
+
+  /* ---- Motion ---- */
+  --s-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --s-dur-fast: 0.32s;
+  --s-dur-med: 0.6s;
+}

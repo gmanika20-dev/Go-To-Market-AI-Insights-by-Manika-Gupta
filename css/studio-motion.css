@@ -1,0 +1,233 @@
+/* ============================================================
+   Manika Gupta — Studio
+   Motion helper classes. GSAP (studio-motion.js) toggles these /
+   animates these elements directly; this file defines the base
+   and reduced-motion-safe states.
+   ============================================================ */
+
+/* ---- Hero ---- */
+.s-hero{
+  position:relative;
+  min-height:100svh;
+  display:flex; flex-direction:column; justify-content:center;
+  overflow:hidden;
+  padding-top:90px;
+}
+.s-hero-name{
+  font-family:var(--s-font-display);
+  font-weight:700;
+  font-size:var(--s-size-hero);
+  line-height:0.92;
+  letter-spacing:-0.02em;
+  margin:0;
+  position:relative;
+  z-index:2;
+}
+.s-hero-name .signal{ color:var(--s-signal); }
+.s-hero-role{
+  font-size:var(--s-size-h3);
+  color:var(--s-ink-dim);
+  margin-top:22px;
+  max-width:36ch;
+  position:relative; z-index:2;
+}
+.s-hero-scroll-cue{
+  position:absolute; left:var(--s-gutter); bottom:28px; z-index:2;
+  font-size:0.8rem; color:var(--s-ink-dim);
+  display:flex; align-items:center; gap:10px;
+}
+.s-hero-scroll-cue .line{ width:28px; height:1px; background:var(--s-ink-dim); }
+
+.s-hero-art{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+}
+.s-hero-art svg{ width:100%; height:100%; }
+@media (max-width: 780px){
+  /* The node-graph artwork is designed to sit to the right of the name
+     on wide screens. On narrow viewports there's no room for it beside
+     the text without hurting legibility, so it fades back rather than
+     disappearing outright. */
+  .s-hero-art{ opacity:0.28; }
+}
+
+/* Sticky wrapper used for the scroll-shrink effect */
+.s-hero-pin{ position:relative; }
+
+/* ---- Generic reveal-on-scroll ---- */
+.s-reveal{
+  opacity:1;
+}
+.js-motion-ready .s-reveal{
+  opacity:0;
+  transform:translateY(18px);
+}
+/* GSAP animates opacity/transform inline once triggered; this class
+   is only the pre-animation resting state, and only applied once JS
+   confirms it will animate (js-motion-ready on <html>), so content
+   never stays invisible if JS fails to load. */
+
+@media (prefers-reduced-motion: reduce){
+  .js-motion-ready .s-reveal{ opacity:1; transform:none; }
+}
+
+/* ---- Roadmap ---- */
+.s-roadmap{ position:relative; }
+.s-roadmap-path{ display:none; }
+@media (min-width: 900px){
+  .s-roadmap-path{ display:block; position:absolute; inset:0; z-index:0; pointer-events:none; }
+}
+.s-roadmap-steps{
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
+  background:var(--s-line);
+  border:1px solid var(--s-line);
+}
+@media (max-width:900px){
+  .s-roadmap-steps{ grid-template-columns:1fr; }
+}
+.s-roadmap-step{
+  background:var(--s-white); padding:26px 22px; min-height:150px;
+  display:flex; flex-direction:column; gap:8px;
+}
+.s-roadmap-step .n{
+  font-family:var(--s-font-display); font-size:1.1rem; color:var(--s-blue);
+}
+.s-roadmap-step h3{ font-size:1rem; margin:0; }
+.s-roadmap-step p{ font-size:0.86rem; color:var(--s-ink-dim); margin:0; }
+.s-roadmap-step.is-active{ background:var(--s-navy); }
+.s-roadmap-step.is-active .n{ color:var(--s-cobalt); }
+.s-roadmap-step.is-active h3, .s-roadmap-step.is-active p{ color:var(--s-on-navy); }
+
+/* ---- Node graph pulse (hub section) ---- */
+.s-node{ transition:opacity 0.6s var(--s-ease); }
+
+/* ===================== MAROON HERO: panning grid + wipes ===================== */
+.s-hero-maroon{ position:relative; background:var(--s-signal); }
+
+.s-hero-pan{
+  position:relative; min-height:100svh; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.s-hero-grid-layer{ position:absolute; inset:0; z-index:0; display:flex; }
+.s-hero-grid-track{ display:flex; width:max-content; animation:s-marquee 70s linear infinite; }
+.s-hero-grid-track img{ height:100svh; width:auto; display:block; }
+@keyframes s-marquee{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-33.3333%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .s-hero-grid-track{ animation:none; }
+}
+
+/* Solid-maroon overlay that "wipes" up from the bottom over the panning
+   grid as the visitor scrolls through the hero — driven by studio-motion.js
+   animating clip-path between these two states. */
+.s-hero-grid-wipe{
+  position:absolute; inset:0; z-index:1; background:var(--s-signal);
+  clip-path:inset(100% 0% 0% 0%);
+  pointer-events:none;
+}
+
+/* Solid-white overlay that wipes up over the tail of the maroon zone,
+   right before the white "How can I help you" section begins. */
+.s-hero-white-wipe{
+  position:absolute; inset:0; z-index:0; background:var(--s-white);
+  clip-path:inset(100% 0% 0% 0%);
+  pointer-events:none;
+}
+
+.s-hero-center{
+  position:relative; z-index:2; text-align:center;
+  max-width:920px; padding:0 var(--s-gutter);
+}
+.s-hero-center-name{
+  font-family:var(--s-font-display); font-weight:700; color:var(--s-white);
+  font-size:clamp(2.6rem, 9vw, 7rem); line-height:1.02; letter-spacing:-0.01em;
+  margin:0;
+}
+.s-hero-center-role{
+  font-family:var(--s-font-body); font-weight:500; color:var(--s-white);
+  font-size:clamp(1rem, 2.1vw, 1.35rem); line-height:1.5;
+  margin:22px auto 0; max-width:46ch;
+}
+.s-hero-scroll-cue--light{ color:var(--s-white); }
+.s-hero-scroll-cue--light .line{ background:var(--s-white); }
+
+.s-intro-maroon{ position:relative; padding:clamp(64px,10vw,120px) 0; }
+.s-intro--on-maroon p{ color:var(--s-on-navy-dim); }
+.s-intro--on-maroon .s-eyebrow{ color:var(--s-white); opacity:0.75; }
+
+.s-btn-on-maroon-primary{ background:var(--s-white); color:var(--s-signal-btn); }
+.s-btn-on-maroon-primary:hover{ background:var(--s-on-navy); }
+.s-btn-on-maroon-ghost{ background:transparent; color:var(--s-white); border-color:rgba(255,255,255,0.55); }
+.s-btn-on-maroon-ghost:hover{ background:var(--s-white); color:var(--s-signal-btn); }
+
+/* ===================== CURSOR-REVEAL PHOTO ===================== */
+.s-reveal-photo{
+  position:relative; margin-top:40px; overflow:hidden;
+  border:1px solid var(--s-line); aspect-ratio:8/5; background:var(--s-paper);
+}
+.s-reveal-photo-img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:grayscale(1) contrast(1.05);
+}
+.s-reveal-grid{
+  position:absolute; inset:0; z-index:1;
+  display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr);
+}
+.s-reveal-zone{
+  appearance:none; border:0; margin:0; padding:14px; cursor:pointer;
+  background:transparent; display:flex; flex-direction:column; align-items:flex-start;
+  justify-content:center; gap:4px; position:relative; text-align:left;
+  overflow:hidden;
+}
+.s-reveal-zone::before{
+  content:""; position:absolute; inset:0; background:rgba(10,10,10,0.0);
+  transition:background var(--s-dur-fast) var(--s-ease);
+}
+.s-reveal-zone-title, .s-reveal-zone-desc, .s-reveal-zone-bullets{
+  position:relative; z-index:1; color:var(--s-white);
+  opacity:0; transform:translateY(10px);
+  transition:opacity var(--s-dur-fast) var(--s-ease), transform var(--s-dur-fast) var(--s-ease);
+}
+.s-reveal-zone-title{
+  font-family:var(--s-font-display); font-weight:600;
+  font-size:clamp(1rem, 1.7vw, 1.3rem);
+}
+.s-reveal-zone-desc{
+  font-family:var(--s-font-body); font-size:clamp(0.7rem, 0.95vw, 0.82rem);
+  line-height:1.3; color:var(--s-on-navy-dim);
+}
+.s-reveal-zone-bullets{
+  list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:3px;
+  max-height:100%; overflow-y:auto;
+}
+.s-reveal-zone-bullets li{
+  position:relative; padding-left:13px; font-size:clamp(0.62rem, 0.85vw, 0.74rem);
+  line-height:1.3; color:var(--s-white);
+}
+.s-reveal-zone-bullets li::before{
+  content:""; position:absolute; left:0; top:0.5em; width:4px; height:4px;
+  background:var(--s-signal); border-radius:50%;
+}
+.s-reveal-zone:hover::before,
+.s-reveal-zone:focus-visible::before,
+.s-reveal-zone.is-active::before{
+  background:rgba(20,10,8,0.72);
+}
+.s-reveal-zone:hover .s-reveal-zone-title,
+.s-reveal-zone:hover .s-reveal-zone-desc,
+.s-reveal-zone:hover .s-reveal-zone-bullets,
+.s-reveal-zone:focus-visible .s-reveal-zone-title,
+.s-reveal-zone:focus-visible .s-reveal-zone-desc,
+.s-reveal-zone:focus-visible .s-reveal-zone-bullets,
+.s-reveal-zone.is-active .s-reveal-zone-title,
+.s-reveal-zone.is-active .s-reveal-zone-desc,
+.s-reveal-zone.is-active .s-reveal-zone-bullets{
+  opacity:1; transform:translateY(0);
+}
+@media (max-width:640px){
+  .s-reveal-zone{ padding:8px; }
+  .s-reveal-zone-desc{ display:none; } /* only the title + bullets fit comfortably at this size */
+}
