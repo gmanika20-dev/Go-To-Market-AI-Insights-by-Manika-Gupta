@@ -100,37 +100,30 @@ from here automatically — you never need to hunt through individual pages.
 ## How the contact forms work
 
 Two forms exist — the report-request form on `contact.html`, and the
-consultation-request form on `work.html`. Both validate properly and
-**both work today**, delivering to the email set in `data/nav.js`
-(`window.STUDIO_CONTACT.email`) — but via a visitor's own email app, not
-silently:
+consultation-request form on `work.html`. Both are connected to
+[Formspree](https://formspree.io) (one shared form, endpoint
+`https://formspree.io/f/xljdngal`) and **submit silently** — the visitor
+fills it in, hits send, and sees a success message on the page. No email
+app opens, nothing else required.
 
-- On submit, the form builds a pre-filled email (your address, a subject
-  line naming which form it was, and every answer laid out as
-  `Label: value`) and opens it with `mailto:`. The visitor still has to
-  hit send in their own email app — nothing is sent automatically behind
-  the scenes.
-- This needs no account, no API key, nothing set up on your end. It's
-  the default because it's the only delivery method that works without
-  you creating a third-party account somewhere, which isn't something
-  that can be done on your behalf.
+Submissions land in the inbox tied to that Formspree account. To check
+or change that, log in at formspree.io.
 
-### Upgrading to a fully silent submit (no email app popup)
+### If you ever need to change the endpoint
 
-If you'd rather visitors never leave the page — the message just sends
-and they see a success line, no email client opens:
+1. Log in at [formspree.io](https://formspree.io) and open (or create) a
+   form to get its endpoint URL.
+2. In `contact.html` and `work.html`, find
+   `action="https://formspree.io/f/xljdngal"` and replace the ID with
+   your new one.
+3. Test by submitting the form yourself once, live.
 
-1. Create a free form at [formspree.io](https://formspree.io) (or any
-   form backend you prefer) — one form can serve both, or use two.
-2. Copy the endpoint URL it gives you.
-3. In `contact.html` and/or `work.html`, find
-   `action="https://formspree.io/f/YOUR_FORM_ID"` and replace
-   `YOUR_FORM_ID` with your real form ID.
-4. Test it by submitting the form yourself once, live.
+### If the endpoint is ever removed or set back to a placeholder
 
-The moment a real endpoint is in place, `js/studio-form.js` automatically
-switches that form from the mailto handoff to a silent background submit
-— no other code changes needed.
+`js/studio-form.js` automatically falls back to opening a pre-filled
+email in the visitor's own email app instead — the form still works,
+just not silently. No code changes needed either way; the behavior
+follows whatever's in the `action` attribute.
 
 ## About `assets/img/journey/`
 
