@@ -218,12 +218,13 @@
           form, submissions go silently to the same inbox.
         -->
         <form data-studio-form data-form-name="1:1 Consultation Request" action="https://formspree.io/f/xljdngal" method="POST">
+          <p class="s-form-legend"><span class="s-field-required">*</span> Required. Everything else is optional.</p>
           <div class="s-field">
-            <label for="mgs-name">Name</label>
+            <label for="mgs-name">Name <span class="s-field-required">*</span></label>
             <input id="mgs-name" name="name" type="text" required placeholder="Jane Doe">
           </div>
           <div class="s-field">
-            <label for="mgs-email">Work Email</label>
+            <label for="mgs-email">Work Email <span class="s-field-required">*</span></label>
             <input id="mgs-email" name="email" type="email" required placeholder="jane@company.com">
           </div>
           <div class="s-field">
@@ -247,6 +248,11 @@
           <button type="submit" class="s-btn s-btn-signal s-btn-block">Request a Consultation</button>
           <p class="s-form-status" role="status"></p>
         </form>
+        <div class="s-form-success" data-form-success hidden>
+          <span class="s-form-success-icon" aria-hidden="true">✓</span>
+          <h3>Thank you — your request is in.</h3>
+          <p>My team is on their way to get in touch with you.</p>
+        </div>
       </div>
     </div>
   </section>

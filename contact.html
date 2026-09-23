@@ -75,19 +75,20 @@
         at formspree.io and swap the action URL below if it changes.
       -->
       <form data-studio-form data-form-name="Competitive Intelligence Report Request" action="https://formspree.io/f/xljdngal" method="POST">
+        <p class="s-form-legend"><span class="s-field-required">*</span> Required. Everything else is optional.</p>
         <div class="s-field-row">
           <div class="s-field">
-            <label for="name">Full name</label>
+            <label for="name">Full name <span class="s-field-required">*</span></label>
             <input id="name" name="name" type="text" required>
           </div>
           <div class="s-field">
-            <label for="email">Work email</label>
+            <label for="email">Work email <span class="s-field-required">*</span></label>
             <input id="email" name="email" type="email" required>
           </div>
         </div>
         <div class="s-field-row">
           <div class="s-field">
-            <label for="company">Company name</label>
+            <label for="company">Company name <span class="s-field-required">*</span></label>
             <input id="company" name="company" type="text" required>
           </div>
           <div class="s-field">
@@ -132,16 +133,21 @@
           </select>
         </div>
         <div class="s-field">
-          <label for="message">Message</label>
+          <label for="message">Message <span class="s-field-required">*</span></label>
           <textarea id="message" name="message" rows="5" required></textarea>
         </div>
         <div class="s-checkbox-row">
           <input id="consent" name="consent" type="checkbox" required>
-          <label for="consent">I agree to be contacted about this request and understand my information will be used only for that purpose.</label>
+          <label for="consent">I agree to be contacted about this request and understand my information will be used only for that purpose. <span class="s-field-required">*</span></label>
         </div>
         <button type="submit" class="s-btn s-btn-signal s-btn-block">Send request</button>
         <p class="s-form-status" role="status"></p>
       </form>
+      <div class="s-form-success" data-form-success hidden>
+        <span class="s-form-success-icon" aria-hidden="true">✓</span>
+        <h3>Thank you — your request is in.</h3>
+        <p>My team is on their way to get in touch with you.</p>
+      </div>
     </div>
   </section>
 
