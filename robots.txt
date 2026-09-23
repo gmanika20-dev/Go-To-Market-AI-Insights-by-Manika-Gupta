@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /legacy/
-
-Sitemap: https://www.gotomarketaiinsight.com/sitemap.xml
